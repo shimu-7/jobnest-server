@@ -29,6 +29,7 @@ async function run() {
     //await client.connect();
     const categoryCollection = client.db('jobDB').collection('category');
     const jobCollection = client.db('jobDB').collection('jobs');
+    const appliedJobCollection = client.db('jobDB').collection('applied');
     app.get('/category', async (req, res) => {
       const cursor = categoryCollection.find();
       const result = await cursor.toArray();
@@ -42,6 +43,20 @@ async function run() {
       res.send(result);
     })
 
+    app.patch('/jobs/:id', async (req, res) => {
+      const id = req.params.id;
+      const filter = { _id: new ObjectId(id) }
+      const updatedJob = req.body;
+      console.log(updatedJob,2);
+      const updateDoc = {
+        $set: {
+          applicants: updatedJob.applicants
+        },
+      };
+      const result = await jobCollection.updateOne(filter,updateDoc);
+      res.send(result)
+    })
+
     app.get('/jobs', async (req, res) => {
       const cursor = jobCollection.find();
       const result = await cursor.toArray();
@@ -53,6 +68,14 @@ async function run() {
       const query = { _id: new ObjectId(id) }
       const result = await jobCollection.findOne(query)
       res.send(result)
+    })
+
+
+    app.post('/applied', async (req, res) => {
+      const appliedJob = req.body;
+      console.log(appliedJob);
+      const result = await appliedJobCollection.insertOne(appliedJob);
+      res.send(result);
     })
     // Send a ping to confirm a successful connection
     //await client.db("admin").command({ ping: 1 });
