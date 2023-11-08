@@ -164,16 +164,6 @@ async function run() {
 
 
     app.post('/applied', async (req, res) => {
-      // console.log(req.query.email);
-      // //console.log('token',req.cookies.token)
-      // console.log('from valid token ', req.user)
-      // if(req.query.email!==req.user.email){
-      //   return res.status(403).send({message: 'forbidden access'})
-      // }
-      // let query = {};
-      // if (req.query?.email) {
-      //   query = { email: req.query.email }
-      // }
       const appliedJob = req.body;
       console.log(appliedJob);
       const result = await appliedJobCollection.insertOne(appliedJob);
