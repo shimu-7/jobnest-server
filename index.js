@@ -70,6 +70,14 @@ async function run() {
       res.send(result)
     })
 
+    app.delete('/jobs/:id', async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) }
+
+      const result = await jobCollection.deleteOne(query);
+      res.send(result);
+  })
+
 
     app.post('/applied', async (req, res) => {
       const appliedJob = req.body;
@@ -77,6 +85,15 @@ async function run() {
       const result = await appliedJobCollection.insertOne(appliedJob);
       res.send(result);
     })
+
+
+    app.get('/applied/', async (req, res) => {
+      const cursor = appliedJobCollection.find();
+      const result = await cursor.toArray();
+      res.send(result);
+    })
+
+
     // Send a ping to confirm a successful connection
     //await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
