@@ -10,7 +10,9 @@ const port = process.env.PORT || 5000;
 // middleware
 app.use(cors({
   origin: [
-    'http://localhost:5173'
+    'http://localhost:5173',
+    'https://job-seeker-7875d.web.app',
+    'https://job-seeker-7875d.firebaseapp.com'
 
   ],
   credentials: true
@@ -172,7 +174,7 @@ async function run() {
 
 
     app.get('/applied', logger, verifyToken, async (req, res) => {
-      console.log(req.query.email);
+      //console.log(req.query.email);
       //console.log('token',req.cookies.token)
       console.log('from valid token ', req.user)
       if(req.query.email!==req.user.email){
