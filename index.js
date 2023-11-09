@@ -10,9 +10,10 @@ const port = process.env.PORT || 5000;
 // middleware
 app.use(cors({
   origin: [
-    'http://localhost:5173',
-    'https://job-seeker-7875d.web.app',
-    'https://job-seeker-7875d.firebaseapp.com'
+    // 'http://localhost:5173',
+    // 'https://job-seeker-7875d.web.app',
+    // 'https://job-seeker-7875d.firebaseapp.com'
+    'https://fancy-frangollo-0163ad.netlify.app'
 
   ],
   credentials: true
